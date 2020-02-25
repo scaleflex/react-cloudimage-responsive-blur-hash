@@ -51,7 +51,7 @@ class Img extends Component {
   }
 
   render() {
-    const { config, src, blurhash } = this.props;
+    const { config = {}, src, blurhash } = this.props;
     const { baseURL, lazyLoading: configLazyLoadingValue } = config;
     const { lazyLoading = configLazyLoadingValue } = this.props;
     const { height, ratio, cloudimgURL, loaded, processed, previewLoaded } = this.state;
