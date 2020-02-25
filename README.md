@@ -17,9 +17,9 @@
    React Cloudimage Responsive | Cloudimage v7
 </h1>
 
-<h3 align="center">
+<h4 align="center">
    (blur hash placeholder)
-</h3>
+</h4>
 
 <p align="center">
 	<strong>
@@ -27,7 +27,7 @@
 		•
 		<a href="https://scaleflex.github.io/react-cloudimage-responsive-blur-hash/" target="_blank">Demo</a>
 		•
-		<a href="https://codesandbox.io/s/1840nl707j" target="_blank">Code Sandbox</a>
+		<a href="https://codesandbox.io/s/react-cloudimage-responsive-blur-hash-example-ivm4j" target="_blank">Code Sandbox</a>
 		•
 		<a href="https://medium.com/@dmitry_82269/responsive-images-in-2019-now-easier-than-ever-b76e5a43c074" target="_blank">Why?</a>
 	</strong>
@@ -137,7 +137,7 @@ render(<App />, document.body);
 NOTE: "ratio" is recommended to prevent page layout jumping. The parameter is used to calculate image height to hold
 the image position while image is loading.
 
-<a href="https://codesandbox.io/s/1840nl707j"><img src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="edeit in codesandbox"/></a>
+<a href="https://codesandbox.io/s/react-cloudimage-responsive-blur-hash-example-ivm4j"><img src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="edeit in codesandbox"/></a>
 
 ### BackgroundImg component:
 
@@ -147,7 +147,7 @@ the image position while image is loading.
 </BackgroundImg>
 ```
 
-<a href="https://codesandbox.io/s/react-cloudimage-responsive-blur-hash-background-1nin8"><img src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="edeit in codesandbox"/></a>
+<a href="https://codesandbox.io/s/react-cloudimage-responsive-blur-hash-background-s3osb"><img src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="edeit in codesandbox"/></a>
 
 ## <a name="configuration"></a> Config
 
