@@ -10,7 +10,7 @@
 
 * [__Low Quality Preview__](https://github.com/scaleflex/react-cloudimage-responsive)
 * __Blur Hash__
-* [__Plain (CSS free)__](https://github.com/scaleflex/react-cloudimage-responsive-plain/blob/master/README.md)
+* [__Plain (CSS free)__](https://github.com/scaleflex/react-cloudimage-responsive-plain)
 
 <p align="center">
 	<img
