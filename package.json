@@ -39,7 +39,7 @@
     "publish-demo": "npm run build-demo && npm run deploy"
   },
   "dependencies": {
-    "cloudimage-responsive-utils": "2.0.0-beta.4",
+    "cloudimage-responsive-utils": "^2.0.1",
     "core-js": "^3.0.0",
     "throttle-debounce": "^2.0.1"
   },
