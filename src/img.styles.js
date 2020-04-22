@@ -1,9 +1,8 @@
-const picture = ({ preserveSize, imgNodeWidth, imgNodeHeight, ratio, previewLoaded, loaded, placeholderBackground }) => ({
+const picture = ({ preserveSize, imgNodeWidth, imgNodeHeight, ratio }) => ({
   width: preserveSize && imgNodeWidth ? imgNodeWidth : '100%',
   height: preserveSize && imgNodeHeight ? imgNodeHeight : 'auto',
   paddingBottom: preserveSize ? 'none' : (100 / ratio) + '%',
-  position: 'relative',
-  background: (!previewLoaded && !loaded) ? placeholderBackground : 'transparent',
+  position: 'relative'
 });
 
 const canvas = ({ loaded }) => ({

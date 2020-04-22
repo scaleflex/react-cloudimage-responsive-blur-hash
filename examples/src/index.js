@@ -9,11 +9,11 @@ import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 
 const cloudimageConfig = {
-  token: 'scaleflex',
+  token: 'demo',
   baseURL: 'https://cloudimage.public.airstore.io/demo/',
   params: 'ci_info=1&org_if_sml=1',
-  placeholderBackground: '#e1e1e1',
-  lazyLoading: true
+  lazyLoading: true,
+  limitFactor: 10
 };
 
 
@@ -324,7 +324,7 @@ class App extends Component {
 
             <div className="row">
               <div className="col-md-4">
-                <p>Original Images</p>
+                <p>Original Image</p>
                 <div >
                   <div className="container-box-wrapper" style={{ display: 'inline-block', width: 200, height: 200 }}>
                     <ContainerBox isHeight/>
