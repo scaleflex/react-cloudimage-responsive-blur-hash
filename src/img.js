@@ -5,6 +5,7 @@ import { getFilteredProps } from './utils.js';
 import styles from './img.styles';
 import LazyLoad from 'react-lazyload';
 import Canvas from './canvas';
+import { BASE_64_PLACEHOLDER } from 'cloudimage-responsive-utils/dist/constants';
 
 
 class Img extends Component {
@@ -51,12 +52,12 @@ class Img extends Component {
   }
 
   render() {
-    const { config = {}, src, blurhash } = this.props;
-    const { baseURL, lazyLoading: configLazyLoadingValue } = config;
+    const { config = {}, blurhash } = this.props;
+    const { lazyLoading: configLazyLoadingValue } = config;
     const { lazyLoading = configLazyLoadingValue } = this.props;
     const { height, ratio, cloudimgSRCSET, cloudimgURL, loaded, processed, previewLoaded } = this.state;
 
-    if (this.server) return <img src={baseURL + src}/>;
+    if (this.server) return <img alt={this.props.alt} src={BASE_64_PLACEHOLDER}/>;
     if (!processed) return <div/>;
 
     const {

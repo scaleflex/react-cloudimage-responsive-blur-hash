@@ -47,7 +47,7 @@ class BackgroundImg extends Component {
   }
 
   render() {
-    if (this.server) return null;
+    if (this.server) return <div>{this.props.children}</div>;
 
     const { height, processed, cloudimgURL } = this.state;
     const {
