@@ -47,7 +47,16 @@ class Img extends Component {
     this.setState(data);
   }
 
-  onImgLoad = () => {
+  updateLoadedImageSize = image => {
+    this.setState({
+      loadedImageWidth: image.width,
+      loadedImageHeight: image.height,
+      loadedImageRatio: image.width / image.height
+    })
+  }
+
+  onImgLoad = (event) => {
+    this.updateLoadedImageSize(event.target)
     this.setState({ loaded: true });
   }
 
@@ -55,7 +64,9 @@ class Img extends Component {
     const { config = {}, blurhash } = this.props;
     const { lazyLoading: configLazyLoadingValue } = config;
     const { lazyLoading = configLazyLoadingValue } = this.props;
-    const { height, ratio, cloudimgSRCSET, cloudimgURL, loaded, processed, previewLoaded } = this.state;
+    const {
+      height, ratio, cloudimgSRCSET, cloudimgURL, loaded, processed, previewLoaded, loadedImageRatio
+    } = this.state;
 
     if (this.server) return <img alt={this.props.alt} src={BASE_64_PLACEHOLDER}/>;
     if (!processed) return <div/>;
@@ -67,7 +78,9 @@ class Img extends Component {
     const picture = (
       <div
         className={`${className} cloudimage-image ${loaded ? 'loaded' : 'loading'}`.trim()}
-        style={styles.picture({ preserveSize, imgNodeWidth, imgNodeHeight, ratio, previewLoaded, loaded })}
+        style={styles.picture({
+          preserveSize, imgNodeWidth, imgNodeHeight, ratio: ratio || loadedImageRatio, previewLoaded, loaded
+        })}
       >
         {blurhash && <Canvas blurhash={blurhash} loaded={loaded}/>}
 
