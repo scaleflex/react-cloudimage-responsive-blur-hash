@@ -26,6 +26,11 @@ Types of changes:
 
 -------------
 
+## 1.4.1 - 2020-04-29
+
+### Added
+- lazyloading dependency
+
 ## 1.4.0 - 2020-04-29
 
 ### Added
