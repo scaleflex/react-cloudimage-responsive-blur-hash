@@ -26,6 +26,14 @@ Types of changes:
 
 -------------
 
+## 1.4.0 - 2020-04-29
+
+### Added
+- missing properties in the documentation (README), fix some mistakes
+
+### Fixed
+- problem with not setting ratio on preview load when no image is set
+
 ## 1.2.0 - 2020-04-22
 
 ### Changed
