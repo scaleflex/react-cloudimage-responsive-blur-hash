@@ -49,9 +49,9 @@ class Img extends Component {
 
   updateLoadedImageSize = image => {
     this.setState({
-      loadedImageWidth: image.width,
-      loadedImageHeight: image.height,
-      loadedImageRatio: image.width / image.height
+      loadedImageWidth: image.naturalWidth,
+      loadedImageHeight: image.naturalHeight,
+      loadedImageRatio: image.naturalWidth / image.naturalHeight
     })
   }
 
