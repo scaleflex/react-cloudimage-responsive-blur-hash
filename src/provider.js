@@ -14,7 +14,7 @@ class CloudimageProvider extends Component {
       token = '',
       domain = 'cloudimg.io',
       lazyLoading = true,
-      lazyLoadOffset = 100, // TODO: add to readme
+      lazyLoadOffset = 100,
       baseUrl, // to support old name
       baseURL,
       presets,
@@ -23,7 +23,7 @@ class CloudimageProvider extends Component {
       exactSize = false,
       doNotReplaceURL = false,
       limitFactor = 100,
-      devicePixelRatioList, // TODO: add to readme
+      devicePixelRatioList = CONSTANTS.DEVICE_PIXEL_RATIO_LIST,
     } = config;
 
     this.state = {
@@ -46,7 +46,7 @@ class CloudimageProvider extends Component {
       innerWidth: typeof window !== 'undefined' ? window.innerWidth : null,
       previewQualityFactor: 10,
       doNotReplaceURL,
-      devicePixelRatioList: devicePixelRatioList || CONSTANTS.DEVICE_PIXEL_RATIO_LIST,
+      devicePixelRatioList,
       limitFactor
     };
 
