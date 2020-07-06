@@ -173,11 +173,25 @@ minute and is totally free.
 
 Your image folder on server, this alows to shorten your origin image URLs.
 
+### domain
+
+###### Type: **String** | Default: **"cloudimg.io"**
+
+Use your custom domain.
+
 ### doNotReplaceURL
 
 ###### Type: **bool** | Default: **false**
 
 If set to **true** the plugin will only add query params to the given source of image.
+
+### exactSize
+
+###### Type: **Bool** | Default: **false** | _optional_
+
+Forces to load exact size of images.
+By default the plugin rounds container width to next possible value which can be divided by 100 without the remainder.
+It’s done for cache reasons so that not all images are cached by 1px, but only 100px, 200px, 300px …
 
 ### <a name="lazy_loading_config"></a>lazyLoading
 
@@ -272,6 +286,12 @@ relative to baseURL in your config.
 
 The plugin uses a special algorithm to detect the width of image container and set the image size accordingly.
 This is the recommended way of using the Cloudimage Responsive plugin.
+
+### blurhash
+
+###### Type: **String** | Default: **undefined** | _required_
+
+BlurHash is a very compact representation of a placeholder for an image. <a href="https://github.com/woltapp/blurhash">read more</a>
 
 ### width
 
