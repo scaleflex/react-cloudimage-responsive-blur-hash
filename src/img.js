@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import { isServer, processReactNode } from 'cloudimage-responsive-utils';
 import { getFilteredProps } from './utils.js';
-import styles from './img.styles';
+import {blurHashImgStyes as styles} from "cloudimage-responsive-utils";
 import LazyLoad from 'react-lazyload';
 import Canvas from './canvas';
 import { BASE_64_PLACEHOLDER } from 'cloudimage-responsive-utils/dist/constants';

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from './img.styles';
+import {blurHashImgStyes as styles} from "cloudimage-responsive-utils";
 import { blurhash } from 'cloudimage-responsive-utils';
 
 

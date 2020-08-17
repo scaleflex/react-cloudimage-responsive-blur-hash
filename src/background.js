@@ -3,7 +3,7 @@ import { findDOMNode } from 'react-dom';
 import { isServer, processReactNode } from 'cloudimage-responsive-utils';
 import { getFilteredBgProps } from './utils.js';
 import LazyLoad from 'react-lazyload';
-import styles from './background.styles';
+import { backgroundStyles as styles } from 'cloudimage-responsive-utils';
 import Canvas from './canvas';
 
 
