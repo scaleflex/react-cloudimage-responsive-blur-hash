@@ -8,7 +8,7 @@ class Canvas extends Component {
     const pixels = blurhash.decode(this.props.blurhash, 32, 32);
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext("2d");
-    const imageData = ctx.getImageData(0, 0, 32, 32);
+    const imageData = ctx.getImageData(0, 0, 32, 32); 
     imageData.data.set(pixels);
     ctx.putImageData(imageData, 0, 0);
   }
