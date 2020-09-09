@@ -26,6 +26,11 @@ Types of changes:
 
 -------------
 
+## 1.4.2 - 2020-09-09
+
+### Added
+- allow unmounting the provider
+
 ## 1.4.1 - 2020-04-29
 
 ### Added
