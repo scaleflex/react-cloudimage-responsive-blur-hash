@@ -2,6 +2,7 @@ import './polyfills';
 import React from 'react';
 import ImgComponent from './img';
 import BackgroundImgComponent from './background';
+import BlurHashComponent from './blurhash';
 import CloudimageProvider, { CloudimageContext } from './provider';
 
 
@@ -21,6 +22,14 @@ const BackgroundImg = (props = {}) => {
   )
 }
 
+const BlurHash = (props = {}) => {
+  return (
+    <CloudimageContext.Consumer>
+      {(context = {}) => <BlurHashComponent {...props} config={context.config }/>}
+    </CloudimageContext.Consumer>
+  )
+}
+
 export default Img;
 
-export { CloudimageProvider, Img, BackgroundImg };
+export { CloudimageProvider, Img, BackgroundImg, BlurHash };
