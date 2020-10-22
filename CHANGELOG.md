@@ -26,6 +26,11 @@ Types of changes:
 
 -------------
 
+## 1.4.3 - 2020-10-22
+
+### Added
+- BlurHash component
+
 ## 1.4.2 - 2020-09-09
 
 ### Added
