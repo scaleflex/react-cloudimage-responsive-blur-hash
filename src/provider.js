@@ -20,6 +20,7 @@ class CloudimageProvider extends Component {
       presets,
       ratio = 1.5,
       params = 'org_if_sml=1',
+      imageSizeAttributes = 'use',
       exactSize = false,
       doNotReplaceURL = false,
       limitFactor = 100,
@@ -47,7 +48,8 @@ class CloudimageProvider extends Component {
       previewQualityFactor: 10,
       doNotReplaceURL,
       devicePixelRatioList,
-      limitFactor
+      limitFactor,
+      imageSizeAttributes
     };
 
     if (typeof window !== 'undefined') {

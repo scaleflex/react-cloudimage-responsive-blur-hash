@@ -1,6 +1,6 @@
 {
   "name": "react-cloudimage-responsive-blur-hash",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "main": "dist/index.js",
   "description": "Cloudimage Responsive will smartly resize, compress and accelerate images across the World in your site for all devices. The plugin supports lazy loading technique with blur hash placeholder.",
   "author": "scaleflex",
@@ -39,10 +39,10 @@
     "publish-demo": "npm run build-demo && npm run deploy"
   },
   "dependencies": {
-    "cloudimage-responsive-utils": "^2.0.10",
+    "cloudimage-responsive-utils": "^2.3.0",
     "core-js": "^3.0.0",
-    "throttle-debounce": "^2.0.1",
-    "react-lazyload": "^2.6.7"
+    "react-lazyload": "^2.6.7",
+    "throttle-debounce": "^2.0.1"
   },
   "peerDependencies": {
     "react": "^16.3.0",

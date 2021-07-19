@@ -1,4 +1,4 @@
-[![Release](https://img.shields.io/badge/release-v1.4.1-blue.svg)](https://github.com/scaleflex/react-cloudimage-responsive-blur-hash/releases)
+[![Release](https://img.shields.io/badge/release-v1.5.0-blue.svg)](https://github.com/scaleflex/react-cloudimage-responsive-blur-hash/releases)
 [![Free plan](https://img.shields.io/badge/price-includes%20free%20plan-green.svg)](https://www.cloudimage.io/en/home#b38181a6-b9c8-4015-9742-7b1a1ad382d5)
 [![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)](#contributing)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -272,6 +272,23 @@ For example
 ###### Type: **[Number,...]** | Default: **[1, 1.5, 2, 3, 4]** | _optional_
 
 List of supported device pixel ratios. If there is no need to support retina devices, you should set empty array `devicePixelRatioList: []`
+
+### ImageSizeAttributes
+
+###### Type: **String** | possible values: 'use', 'ignore', 'take-ratio' | Default: **'use'** 
+
+If width and height attributes are set:
+
+**use** - width & height attributes values will be used to calculate image size (according to user's DPR) and **ratio**. 
+
+**take-ratio** - width & height attributes values will be used only to calculate **ratio**.
+
+**ignore** - width & height attributes will be ignored.
+
+If width and height attributes are NOT set, image container size will be detected to calculate result image size (according to user's DPR)
+
+*Note*: If only width or height attributes is set, ratio is going to be taken from ci-ratio image attribute
+
 
 ## <a name="image_properties"></a> Image properties
 
