@@ -484,6 +484,13 @@ const cloudimageConfig = {
   baseURL: 'https://jolipage.airstore.io/'
 };
 
+const cloudimageConfigWithCustomCNAMEDomain = {
+  token: 'demo',
+  baseURL: 'https://jolipage.airstore.io/',
+  customDomain: 'images.airstore.io'
+};
+
+
 const App = () => {
   return (
     <CloudimageProvider config={cloudimageConfig}>
