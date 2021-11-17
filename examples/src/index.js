@@ -13,6 +13,7 @@ const cloudimageConfig = {
   baseURL: 'https://cloudimage.public.airstore.io/demo/',
   params: 'ci_info=1&org_if_sml=1',
   lazyLoading: true,
+  apiVersion: 'v7',
   limitFactor: 10
 };
 
@@ -347,7 +348,7 @@ class App extends Component {
                     className="container-box-wrapper"
                     style={{ display: 'inline-block', width: 200, height: 200, position: 'relative' }}
                   >
-                    <img src="https://doc.cloudimg.io/v7/sample.li/boat.jpg"/>
+                    <img src="https://doc.cloudimg.io/sample.li/boat.jpg"/>
                     <div className="border-box"/>
                   </div>
                 </div>

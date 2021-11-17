@@ -18,6 +18,7 @@ class CloudimageProvider extends Component {
       lazyLoadOffset = 100,
       baseUrl, // to support old name
       baseURL,
+      apiVersion = 'v7',
       presets,
       ratio = 1.5,
       params = 'org_if_sml=1',
@@ -35,6 +36,7 @@ class CloudimageProvider extends Component {
       lazyLoading,
       lazyLoadOffset,
       baseURL: baseUrl || baseURL,
+      apiVersion,
       ratio,
       exactSize,
       presets: presets ? presets :
