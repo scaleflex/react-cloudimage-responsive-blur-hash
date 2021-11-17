@@ -25,6 +25,10 @@ Types of changes:
 - ...
 
 -------------
+## 1.6.2 - 2021-11-17
+### Fixed
+- possibility to remove API versions
+
 ## 1.6.1 - 2021-07-27
 ### Fixed
 - domain property in config
