@@ -25,6 +25,10 @@ Types of changes:
 - ...
 
 -------------
+## 1.6.3 - 2021-12-22
+### Fixed
+-  img-src starts with "//"
+
 ## 1.6.2 - 2021-11-17
 ### Fixed
 - possibility to remove API versions
