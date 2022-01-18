@@ -10,6 +10,7 @@ export const getFilteredProps = props => {
     blurhash,
     ratio,
     params,
+    lazyLoading,
     ...otherProps
   } = props;
 
