@@ -72,7 +72,7 @@ class Img extends Component {
     if (!processed) return <div/>;
 
     const {
-      alt, className, lazyLoadConfig, preserveSize, imgNodeWidth, imgNodeHeight, ...otherProps
+      alt, className, lazyLoadConfig, preserveSize, imgNodeWidth, imgNodeHeight, doNotReplaceURL, ...otherProps
     } = getFilteredProps(this.props);
 
     const picture = (

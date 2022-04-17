@@ -374,6 +374,12 @@ params={{
 }}
 ```
 
+### doNotReplaceURL
+
+###### Type: **Boolean** | Default: **false** | _optional_
+
+If set to true, the plugin will only add query parameters to the provided image source URL.
+
 [Full cloudimage v7 documentation here.](https://docs.cloudimage.io/go/cloudimage-documentation-v7/en/introduction)
 
 ### sizes
