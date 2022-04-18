@@ -1,4 +1,4 @@
-[![Release](https://img.shields.io/badge/release-v1.6.6-blue.svg)](https://github.com/scaleflex/react-cloudimage-responsive-blur-hash/releases)
+[![Release](https://img.shields.io/badge/release-v1.6.7-blue.svg)](https://github.com/scaleflex/react-cloudimage-responsive-blur-hash/releases)
 [![Free plan](https://img.shields.io/badge/price-includes%20free%20plan-green.svg)](https://www.cloudimage.io/en/home#b38181a6-b9c8-4015-9742-7b1a1ad382d5)
 [![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)](#contributing)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -13,10 +13,16 @@
 * [__Plain (CSS free)__](https://github.com/scaleflex/react-cloudimage-responsive-plain)
 
 <p align="center">
-	<img
-		height="175"
-		alt="The Lounge"
-		src="https://demo.cloudimg.io/height/350/n/https://scaleflex.airstore.io/filerobot/filerobot-cloudimage.png?sanitize=true">
+<a href="https://www.cloudimage.io/#gh-light-mode-only">
+		<img
+			alt="cloudimage logo"
+			src="https://scaleflex.cloudimg.io/v7/cloudimage.io/LOGO+WITH+SCALEFLEX-01.png?vh=f6080d&w=350">
+	</a>
+		<a href="https://www.cloudimage.io/#gh-dark-mode-only">
+		<img
+			alt="cloudimage logo"
+			src="https://scaleflex.cloudimg.io/v7/cloudimage.io/cloudimage-logo-light.png?vh=b798ab&w=350">
+	</a>
 </p>
 
 <h1 align="center">
