@@ -1,8 +1,9 @@
-[![Release](https://img.shields.io/badge/release-v1.6.7-blue.svg)](https://github.com/scaleflex/react-cloudimage-responsive-blur-hash/releases)
+[![Release](https://img.shields.io/badge/release-v1.6.8-blue.svg)](https://github.com/scaleflex/js-cloudimage-responsive/releases)
 [![Free plan](https://img.shields.io/badge/price-includes%20free%20plan-green.svg)](https://www.cloudimage.io/en/home#b38181a6-b9c8-4015-9742-7b1a1ad382d5)
 [![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)](#contributing)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Scaleflex team](https://img.shields.io/badge/%3C%2F%3E%20with%20%E2%99%A5%20by-the%20Scaleflex%20team-6986fa.svg)](https://www.scaleflex.it/en/home)
+[![Scaleflex team](https://img.shields.io/badge/%3C%2F%3E%20with%20%E2%99%A5%20by-the%20Scaleflex%20team-6986fa.svg)](https://www.scaleflex.com/en/home)
+[![Cloudimage](https://img.shields.io/badge/Powered%20by-cloudimage-blue)](https://www.cloudimage.io/en/home)
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Responsive%20images,%20now%20easier%20than%20ever&url=https://scaleflex.github.io/react-cloudimage-responsive-blur-hash/&via=cloudimage&hashtags=react,images,cloudimage,responsive_images,lazy_loading,web_acceleration,image_optimization,image_CDN,image_CDNwebp,jpeg_xr,jpg_optimization,image_resizing_and_CDN,cropresize)
 
@@ -39,7 +40,7 @@
 		•
 		<a href="https://scaleflex.github.io/react-cloudimage-responsive-blur-hash/" target="_blank">Demo</a>
 		•
-		<a href="https://codesandbox.io/s/react-cloudimage-responsive-blur-hash-example-ivm4j" target="_blank">Code Sandbox</a>
+		<a href="https://codesandbox.io/s/react-cloudimage-responsive-example-blur-hash-yekyzk" target="_blank">Code Sandbox</a>
 		•
 		<a href="https://medium.com/@dmitry_82269/responsive-images-in-2019-now-easier-than-ever-b76e5a43c074" target="_blank">Why?</a>
 	</strong>
@@ -67,9 +68,6 @@ Cloudimage, contact us at
 		src="https://demo.cloudimg.io/width/1400/n/https://scaleflex.airstore.io/filerobot/cloudimage-process.jpg?sanitize=true">
 </p>
 
-powered by [Cloudimage](https://www.cloudimage.io/)
-([Watch the video here](https://www.youtube.com/watch?time_continue=2&v=JFZSE1vYb0k))
-
 ## Table of contents
 
 * [Demo](#demo)
@@ -79,7 +77,6 @@ powered by [Cloudimage](https://www.cloudimage.io/)
 * [Step 3: Implement](#implement)
 * [Configuration](#configuration)
 * [Image properties](#image_properties)
-* [Examples & workarounds](#examples_workarounds)
 * [Browser support](#browser_support)
 * [Filerobot UI Family](#ui_family)
 * [Contributing](#contributing)
@@ -150,7 +147,7 @@ render(<App />, document.body);
 NOTE: "ratio" is recommended to prevent page layout jumping. The parameter is used to calculate image height to hold
 the image position while image is loading.
 
-<a href="https://codesandbox.io/s/react-cloudimage-responsive-blur-hash-example-ivm4j"><img src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="edeit in codesandbox"/></a>
+<a href="https://codesandbox.io/s/react-cloudimage-responsive-example-blur-hash-yekyzk"><img src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="edeit in codesandbox"/></a>
 
 ### BackgroundImg component:
 
@@ -160,7 +157,7 @@ the image position while image is loading.
 </BackgroundImg>
 ```
 
-<a href="https://codesandbox.io/s/react-cloudimage-responsive-blur-hash-background-s3osb"><img src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="edeit in codesandbox"/></a>
+<a href="https://codesandbox.io/s/react-cloudimage-responsive-example-blur-hash-y7p5mn"><img src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="edeit in codesandbox"/></a>
 
 ## <a name="configuration"></a> Config
 
@@ -221,6 +218,8 @@ Use your custom domain.
 ###### Type: **bool** | Default: **false**
 
 If set to **true** the plugin will only add query params to the given source of image.
+
+<a href="https://codesandbox.io/s/react-cloudimage-responsive-example-6xl8pw"><img src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="edeit in codesandbox"/></a>
 
 ### exactSize
 
@@ -447,11 +446,6 @@ Make it possible to disable lazyLoading for each image.
 The lazyLoad configuration to [LazyLoad](https://github.com/twobin/react-lazyload#props) component. 
 
 To see the full cloudimage documentation [click here](https://docs.cloudimage.io/go/cloudimage-documentation)
-
-## <a name="examples_workarounds"></a>Examples & workarounds
-* [See all](https://github.com/scaleflex/react-cloudimage-responsive/blob/master/examples/EXAMPLES.md)
-* [Cropping](https://github.com/scaleflex/react-cloudimage-responsive/blob/master/examples/EXAMPLES.md#cropping)
-* [Integration with Gatsby](https://github.com/scaleflex/react-cloudimage-responsive/blob/master/examples/EXAMPLES.md#integration-with-gatsby)
 
 ## <a name="browser_support"></a>Browser support
 
