@@ -1,9 +1,11 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { 
+  useEffect, useMemo, useState, createContext 
+} from 'react';
 import { debounce } from 'throttle-debounce';
 import { CONSTANTS, processParams } from 'cloudimage-responsive-utils';
 
 
-export const CloudimageContext = React.createContext({ cloudImageConfig: {} });
+const CloudimageContext = createContext({ cloudImageConfig: {} });
 
 function CloudimageProvider ({ config = {}, children } = {}) {
   const {
@@ -53,13 +55,11 @@ function CloudimageProvider ({ config = {}, children } = {}) {
   });
 
   const updateDimensions = debounce(100, () => {
-    setCloudImageConfig({
-      ...cloudImageConfig,
-      innerWidth: window.innerWidth
-    });
+    setCloudImageConfig({ ...cloudImageConfig, innerWidth: window.innerWidth });
   });
 
   useEffect(() => {
+    console.log(children);
     if (typeof window !== 'undefined') {
       window.addEventListener("resize", updateDimensions);
     }
@@ -67,13 +67,16 @@ function CloudimageProvider ({ config = {}, children } = {}) {
     return () => {
       window.removeEventListener('resize', updateDimensions);
     }
-  },[]);
+  }, []);
 
   return (
-    <CloudimageContext.Provider value={useMemo(() => ({ config: cloudImageConfig }),[cloudImageConfig])}>
+    <CloudimageContext.Provider 
+      value={useMemo(() => ({ cloudImageConfig }), [cloudImageConfig])}
+    >
       {children}
     </CloudimageContext.Provider>
   );
 }
 
+export { CloudimageContext };
 export default CloudimageProvider;

@@ -1,8 +1,7 @@
 import './polyfills';
-import {
+import React, {
   useContext, forwardRef, useCallback,
 } from 'react';
-import React from 'react';
 import ImgComponent from './img';
 import BackgroundImgComponent from './background';
 import BlurHashComponent from './blurhash';
@@ -52,5 +51,4 @@ const BlurHash = forwardRef((props, ref) => {
 });
 
 export default Img;
-
 export { CloudimageProvider, Img, BackgroundImg, BlurHash };

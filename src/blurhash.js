@@ -6,7 +6,12 @@ import Canvas from './canvas';
 
 function BlurHash(props){
   const { blurhash, ratio = 1 } = props;
-  const { className, preserveSize, imgNodeWidth, imgNodeHeight } = getFilteredProps(props);
+  const { 
+    className,
+    preserveSize,
+    imgNodeWidth,
+    imgNodeHeight,
+  } = getFilteredProps(props);
 
   return(
     <div
