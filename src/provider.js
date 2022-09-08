@@ -59,7 +59,6 @@ function CloudimageProvider ({ config = {}, children } = {}) {
   });
 
   useEffect(() => {
-    console.log(children);
     if (typeof window !== 'undefined') {
       window.addEventListener("resize", updateDimensions);
     }

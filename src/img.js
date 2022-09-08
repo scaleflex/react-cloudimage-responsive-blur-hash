@@ -10,22 +10,22 @@ import { BASE_64_PLACEHOLDER } from 'cloudimage-responsive-utils/dist/constants'
 
 function Img (props) {
   const { config = {}, src, blurhash } = props;
+  const { lazyLoading: _lazyLoading, lazyLoadOffset, delay } = config;
+  const { lazyLoading = _lazyLoading } = props;
+
+  // console.log(props);
 
   const [loaded, setLoaded] = useState(false);
-  const [processed, setProcessed] = useState(false);
-  const [previewLoaded, setPreviewLoaded] = useState(false);
-  const [cloudimgURL, setCloudimgURL] = useState('');
-  const [loadedImageDim, setLoadedImageDim] = useState({});
   const [data, setData] = useState({});
+
+  const [loadedImageDim, setLoadedImageDim] = useState({});
 
   const imgNode = useRef();
   const server = useMemo(() => isServer(), []);
   const previousProps = usePrevious({ innerWidth: config.innerWidth, src });
 
-  const { lazyLoading: configLazyLoadingValue, lazyLoadOffset } = config;
-  const { lazyLoading = configLazyLoadingValue } = props;
   const {
-    height, ratio, cloudimgSRCSET,
+    height, ratio, cloudimgSRCSET, cloudimgURL, processed, previewLoaded
   } = data;
 
   const {
@@ -35,23 +35,22 @@ function Img (props) {
     preserveSize, 
     imgNodeWidth,
     imgNodeHeight, 
-    doNotReplaceURL, 
+    doNotReplaceURL,
+    disableAnimation,
+    innerRef,
     ...otherProps
   } = getFilteredProps(props);
-
-  const { innerRef } = otherProps;
 
   const processImg = (update, windowScreenBecomesBigger) => {
     const imageData = processReactNode(
       props,
-      imgNode.current,
+      imgNode.current || imgNode.current.ref,
       update,
       windowScreenBecomesBigger,
       false
     );
     
     if (imageData) {
-      console.log(imageData);
       setData(imageData);
     }
   };
@@ -68,6 +67,9 @@ function Img (props) {
     updateLoadedImageSize(event.target)
     setLoaded(true);
   }
+
+  const getCloudimgSRCSET = () => cloudimgSRCSET
+  ?.map(({ dpr, url }) => `${url} ${dpr}x`).join(', ');
 
   const pictureClassName = `${className} cloudimage-image ${loaded ? 'loaded' : 'loading'}`
     .trim();
@@ -93,13 +95,29 @@ function Img (props) {
         ref={innerRef}
         style={styles.img()}
         src={cloudimgURL}
-        srcSet={cloudimgSRCSET.map(({ dpr, url }) => `${url} ${dpr}x`).join(', ')}
+        {...(cloudimgSRCSET && {
+          srcSet: getCloudimgSRCSET(),
+        })}
         alt={alt}
         onLoad={onImgLoad}
         {...otherProps}
       />
     </div>
   );
+
+  useEffect(() => {
+    if (server || !(imgNode.current || imgNode.current?.ref)) return;
+
+    if (typeof delay !== 'undefined') {
+      setTimeout(() => {
+        processImg();
+      }, delay);
+    } else {
+      processImg();
+    }
+
+    innerRef.current = imgNode.current || imgNode.current.ref;
+  }, []);
 
   useEffect(() => {
     if (!previousProps) return;
@@ -116,18 +134,12 @@ function Img (props) {
     }
   }, [innerWidth, src]);
 
-  useEffect(() => {
-    if (server) return;
-
-    processImg();
-  }, []);
-
-  if (server) return <img alt={props.alt} src={BASE_64_PLACEHOLDER}/>;
+  if (server) return <img alt={alt} src={BASE_64_PLACEHOLDER}/>;
 
   if (!processed) return <div/>;
 
   return lazyLoading ? (
-    <LazyLoad height={height} offset={lazyLoadOffset} {...lazyLoadConfig}>
+    <LazyLoad ref={imgNode} height={height} offset={lazyLoadOffset} {...lazyLoadConfig}>
       {picture}
     </LazyLoad>
   ) : picture;

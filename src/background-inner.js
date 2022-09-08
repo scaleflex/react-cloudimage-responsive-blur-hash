@@ -9,11 +9,14 @@ function BackgroundInner(props){
     style,
     children,
     blurhash,
-    innerRef,
+    _ref,
+    config,
     ...otherProps
   } = props;
 
   const [loaded, setLoaded] = useState(false);
+
+  const { delay } = config;
 
   const onImgLoad = () => {
     setLoaded(true);
@@ -26,16 +29,28 @@ function BackgroundInner(props){
     img.src = cloudimgURL;
   }
 
+  const containerClassName = [
+    className,
+    'cloudimage-background',
+    loaded ? 'loaded' : 'loading',
+  ].join(' ').trim();
+
   useEffect(() => {
-    preLoadImg();
-  },[]);
+    if (typeof delay !== 'undefined') {
+      setTimeout(() => {
+        preLoadImg();
+      }, delay);
+    } else {
+      preLoadImg();
+    }
+  }, []);
 
   return(
     <div
-        {...otherProps}
-        ref={innerRef}
-        className={[className, 'cloudimage-background', `${loaded ? 'loaded' : 'loading'}`].join(' ').trim()}
-        style={styles.container({ style, cloudimgURL })}
+      {...otherProps}
+      ref={_ref}
+      className={containerClassName}
+      style={styles.container({ style, cloudimgURL })}
       >
         {blurhash && <Canvas blurhash={blurhash} loaded={loaded}/>}
 

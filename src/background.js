@@ -9,28 +9,28 @@ import usePrevious from './hooks/usePrevious';
 function BackgroundImg (props){
   const { config = {}, src } = props;
 
+  const { innerWidth } = config;
+
   const [data, setData] = useState({});
 
   const bgNode = useRef();
-  const server = useMemo(() => isServer(),[]);
+  const server = useMemo(() => isServer(), []);
 
   const {
     height, cloudimgURL, processed,
   } = data;
 
   const processBg = (update, windowScreenBecomesBigger) => {
-    if(bgNode.current){
-      const bgData = processReactNode(
-        props,
-        bgNode.current,
-        update,
-        windowScreenBecomesBigger,
-        false,
-      );
-  
-      if (bgData) {
-        setData(bgData);
-      }
+    const bgData = processReactNode(
+      props,
+      bgNode.current || bgNode.current.ref,
+      update,
+      windowScreenBecomesBigger,
+      false,
+    );
+
+    if (bgData) {
+      setData(bgData);
     }
   }
 
@@ -48,12 +48,6 @@ function BackgroundImg (props){
     ...otherProps
   } = getFilteredBgProps(props);
 
-  useEffect(() => {
-    if (server) return;
-
-    processBg();
-  }, []);
-
   const containerProps = {
     cloudimgURL,
     className,
@@ -64,6 +58,14 @@ function BackgroundImg (props){
   };
 
   const previousProps = usePrevious({ innerWidth: config.innerWidth, src });
+
+  useEffect(() => {
+    if (server || !(bgNode.current || bgNode.current?.ref)) return;
+
+    processBg();
+  
+    innerRef.current = bgNode.current || bgNode.current.ref;
+  }, []);
 
   useEffect(() => {
     if (!previousProps) return;
@@ -78,7 +80,7 @@ function BackgroundImg (props){
 
   }, [innerWidth, src]);
 
-  const Container = <BackgroundInner innerRef={innerRef} {...containerProps}/>;
+  const Container = <BackgroundInner _ref={bgNode} {...containerProps}/>;
  
   if (server) return <div>{children}</div>;
 
@@ -86,6 +88,7 @@ function BackgroundImg (props){
 
   return lazyLoading ? (
     <LazyLoad 
+      ref={bgNode}
       height={height} 
       offset={config.lazyLoadOffset} 
       {...lazyLoadConfig}
