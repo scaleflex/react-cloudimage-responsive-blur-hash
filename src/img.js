@@ -1,109 +1,148 @@
-import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { isServer, processReactNode } from 'cloudimage-responsive-utils';
 import { getFilteredProps } from './utils.js';
 import {blurHashImgStyes as styles} from "cloudimage-responsive-utils";
-import LazyLoad from 'react-lazyload';
+// import LazyLoad from 'react-lazyload';
 import Canvas from './canvas';
+import usePrevious from './hooks/usePrevious';
 import { BASE_64_PLACEHOLDER } from 'cloudimage-responsive-utils/dist/constants';
 
 
-class Img extends Component {
-  constructor(props) {
-    super(props);
+function Img (props) {
+  const { config = {}, src, blurhash } = props;
+  const { lazyLoading: _lazyLoading, lazyLoadOffset, delay } = config;
+  const { lazyLoading = _lazyLoading } = props;
 
-    this.server = isServer();
-    this.state = {
-      cloudimgURL: '',
-      loaded: false,
-      processed: false
-    };
-  }
+  // console.log(props);
 
-  componentDidMount() {
-    if (this.server) return;
+  const [loaded, setLoaded] = useState(false);
+  const [data, setData] = useState({});
 
-    this.processImg();
-  }
+  const [loadedImageDim, setLoadedImageDim] = useState({});
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.server) return;
+  const imgNode = useRef();
+  const server = useMemo(() => isServer(), []);
+  const previousProps = usePrevious({ innerWidth: config.innerWidth, src });
 
-    const { config: { innerWidth }, src } = this.props;
+  const {
+    height, ratio, cloudimgSRCSET, cloudimgURL, processed, previewLoaded
+  } = data;
 
-    if (prevProps.config.innerWidth !== innerWidth) {
-      this.processImg(true, innerWidth > prevProps.config.innerWidth);
-    }
+  const {
+    alt, 
+    className, 
+    lazyLoadConfig, 
+    preserveSize, 
+    imgNodeWidth,
+    imgNodeHeight, 
+    doNotReplaceURL,
+    disableAnimation,
+    innerRef,
+    ...otherProps
+  } = getFilteredProps(props);
 
-    if (src !== prevProps.src) {
-      this.processImg();
-    }
-  }
-
-  processImg = (update, windowScreenBecomesBigger) => {
-    const imgNode = findDOMNode(this);
-    const data = processReactNode(this.props, imgNode, update, windowScreenBecomesBigger, false);
-
-    this.setState(data);
-  }
-
-  updateLoadedImageSize = image => {
-    this.setState({
-      loadedImageWidth: image.naturalWidth,
-      loadedImageHeight: image.naturalHeight,
-      loadedImageRatio: image.naturalWidth / image.naturalHeight
-    })
-  }
-
-  onImgLoad = (event) => {
-    this.updateLoadedImageSize(event.target)
-    this.setState({ loaded: true });
-  }
-
-  render() {
-    const { config = {}, blurhash } = this.props;
-    const { lazyLoading: configLazyLoadingValue } = config;
-    const { lazyLoading = configLazyLoadingValue } = this.props;
-    const {
-      height, ratio, cloudimgSRCSET, cloudimgURL, loaded, processed, previewLoaded, loadedImageRatio
-    } = this.state;
-
-    if (this.server) return <img alt={this.props.alt} src={BASE_64_PLACEHOLDER}/>;
-    if (!processed) return <div/>;
-
-    const {
-      alt, className, lazyLoadConfig, preserveSize, imgNodeWidth, imgNodeHeight, doNotReplaceURL, ...otherProps
-    } = getFilteredProps(this.props);
-
-    const picture = (
-      <div
-        className={`${className} cloudimage-image ${loaded ? 'loaded' : 'loading'}`.trim()}
-        style={styles.picture({
-          preserveSize, imgNodeWidth, imgNodeHeight, ratio: ratio || loadedImageRatio, previewLoaded, loaded
-        })}
-      >
-        {blurhash && <Canvas blurhash={blurhash} loaded={loaded}/>}
-
-        <img
-          style={styles.img()}
-          src={cloudimgURL}
-          srcSet={cloudimgSRCSET.map(({ dpr, url }) => `${url} ${dpr}x`).join(', ')}
-          alt={alt}
-          onLoad={this.onImgLoad}
-          {...otherProps}
-        />
-      </div>
+  const processImg = (update, windowScreenBecomesBigger) => {
+    const imageData = processReactNode(
+      props,
+      imgNode.current || imgNode.current.ref,
+      update,
+      windowScreenBecomesBigger,
+      false
     );
+    
+    if (imageData) {
+      setData(imageData);
+    }
+  };
 
-    return lazyLoading ? (
-      <LazyLoad height={height} offset={config.lazyLoadOffset} {...lazyLoadConfig}>
-        {picture}
-      </LazyLoad>
-    ) : picture;
+  const updateLoadedImageSize = (image) => {
+    setLoadedImageDim({
+      width: image.naturalWidth,
+      height: image.naturalHeight,
+      ratio: image.naturalWidth / image.naturalHeight
+    });
   }
+
+  const onImgLoad = (event) => {
+    updateLoadedImageSize(event.target)
+    setLoaded(true);
+  }
+
+  const getCloudimgSRCSET = () => cloudimgSRCSET
+  ?.map(({ dpr, url }) => `${url} ${dpr}x`).join(', ');
+
+  const pictureClassName = `${className} cloudimage-image ${loaded ? 'loaded' : 'loading'}`
+    .trim();
+  
+  const pictureStyles = styles.picture({
+    preserveSize,
+    imgNodeWidth,
+    imgNodeHeight,
+    ratio: ratio || loadedImageDim.ratio,
+    previewLoaded,
+    loaded
+  });
+
+  const picture = (
+    <div
+      className={pictureClassName}
+      style={pictureStyles}
+      ref={imgNode}
+    >
+      {blurhash && <Canvas blurhash={blurhash} loaded={loaded}/>}
+
+      <img
+        ref={innerRef}
+        style={styles.img()}
+        src={cloudimgURL}
+        {...(cloudimgSRCSET && {
+          srcSet: getCloudimgSRCSET(),
+        })}
+        alt={alt}
+        onLoad={onImgLoad}
+        {...otherProps}
+      />
+    </div>
+  );
+
+  useEffect(() => {
+    if (server || !(imgNode.current || imgNode.current?.ref)) return;
+
+    if (typeof delay !== 'undefined') {
+      setTimeout(() => {
+        processImg();
+      }, delay);
+    } else {
+      processImg();
+    }
+
+    innerRef.current = imgNode.current || imgNode.current.ref;
+  }, []);
+
+  useEffect(() => {
+    if (!previousProps) return;
+
+    if (previousProps.innerWidth !== innerWidth) {
+      processImg(
+        true,
+        innerWidth > previousProps.innerWidth
+      );
+    }
+
+    if (src !== previousProps.src) {
+      processImg();
+    }
+  }, [innerWidth, src]);
+
+  if (server) return <img alt={alt} src={BASE_64_PLACEHOLDER}/>;
+
+  if (!processed) return <div/>;
+
+  return lazyLoading ? (
+    <LazyLoad ref={imgNode} height={height} offset={lazyLoadOffset} {...lazyLoadConfig}>
+      {picture}
+    </LazyLoad>
+  ) : picture;
 }
-
-
-
 
 export default Img;

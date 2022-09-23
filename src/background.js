@@ -1,109 +1,101 @@
-import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { isServer, processReactNode } from 'cloudimage-responsive-utils';
 import { getFilteredBgProps } from './utils.js';
-import LazyLoad from 'react-lazyload';
-import { backgroundStyles as styles } from 'cloudimage-responsive-utils';
-import Canvas from './canvas';
+// import LazyLoad from 'react-lazyload';
+import BackgroundInner from './background-inner';
+import usePrevious from './hooks/usePrevious';
 
 
-class BackgroundImg extends Component {
-  constructor(props) {
-    super(props);
+function BackgroundImg (props){
+  const { config = {}, src } = props;
 
-    this.server = isServer();
-    this.state = { cloudimgURL: '', processed: false };
+  const { innerWidth } = config;
+
+  const [data, setData] = useState({});
+
+  const bgNode = useRef();
+  const server = useMemo(() => isServer(), []);
+
+  const {
+    height, cloudimgURL, processed,
+  } = data;
+
+  const processBg = (update, windowScreenBecomesBigger) => {
+    const bgData = processReactNode(
+      props,
+      bgNode.current || bgNode.current.ref,
+      update,
+      windowScreenBecomesBigger,
+      false,
+    );
+
+    if (bgData) {
+      setData(bgData);
+    }
   }
 
-  componentDidMount() {
-    if (this.server) return;
+  const {
+    alt,
+    className,
+    style,
+    lazyLoadConfig,
+    // lazyLoading = config.lazyLoading,
+    lazyLoading = false,
+    children,
+    blurhash,
+    innerRef,
+    doNotReplaceURL,
+    ...otherProps
+  } = getFilteredBgProps(props);
 
-    this.processBg();
-  }
+  const containerProps = {
+    cloudimgURL,
+    className,
+    style,
+    children,
+    blurhash,
+    ...otherProps,
+  };
 
-  componentDidUpdate(prevProps) {
-    if (this.server) return;
+  const previousProps = usePrevious({ innerWidth: config.innerWidth, src });
 
-    const { config: { innerWidth }, src } = this.props;
+  useEffect(() => {
+    if (server || !(bgNode.current || bgNode.current?.ref)) return;
 
-    if (prevProps.config.innerWidth !== innerWidth) {
-      this.processBg(true, innerWidth > prevProps.config.innerWidth);
+    processBg();
+  
+    innerRef.current = bgNode.current || bgNode.current.ref;
+  }, []);
+
+  useEffect(() => {
+    if (!previousProps) return;
+
+    if (previousProps.innerWidth !== innerWidth) {
+      processBg(true, innerWidth > previousProps.innerWidth);
     }
 
-    if (src !== prevProps.src) {
-      this.processBg();
-    }
-  }
-
-  processBg = (update, windowScreenBecomesBigger) => {
-    const bgNode = findDOMNode(this);
-    const data = processReactNode(this.props, bgNode, update, windowScreenBecomesBigger, false);
-
-    if (!data) {
-      return;
+    if (src !== previousProps.src) {
+      processBg();
     }
 
-    this.setState(data);
-  }
+  }, [innerWidth, src]);
 
-  render() {
-    if (this.server) return <div>{this.props.children}</div>;
+  const Container = <BackgroundInner _ref={bgNode} {...containerProps}/>;
+ 
+  if (server) return <div>{children}</div>;
 
-    const { height, processed, cloudimgURL } = this.state;
-    const {
-      alt, className, config, style, lazyLoadConfig,
-      lazyLoading = config.lazyLoading,
-      children, blurhash, doNotReplaceURL, ...otherProps
-    } = getFilteredBgProps(this.props);
+  if (!processed && bgNode.current) return <div ref={bgNode}>{children}</div>;
 
-    if (!processed) return <div>{children}</div>;
-
-    const Container = <BackgroundInner {...{ cloudimgURL, className, style, children, blurhash, otherProps }}/>;
-
-    return lazyLoading ? (
-      <LazyLoad height={height} offset={config.lazyLoadOffset} {...lazyLoadConfig}>
-        {Container}
-      </LazyLoad>
-    ) : Container;
-  }
-}
-
-class BackgroundInner extends Component {
-  state = { loaded: false };
-
-  componentDidMount() {
-    this.preLoadImg(this.props.cloudimgURL);
-  }
-
-  preLoadImg = (cloudimgURL) => {
-    const img = new Image();
-
-    img.onload = this.onImgLoad;
-    img.src = cloudimgURL;
-  }
-
-  onImgLoad = () => {
-    this.setState({ loaded: true });
-  }
-
-  render() {
-    const { loaded } = this.state;
-    const { cloudimgURL, className, style, children, blurhash, otherProps } = this.props;
-
-    return (
-      <div
-        {...otherProps}
-        className={[className, 'cloudimage-background', `${loaded ? 'loaded' : 'loading'}`].join(' ').trim()}
-        style={styles.container({ style, cloudimgURL })}
-      >
-        {blurhash && <Canvas blurhash={blurhash} loaded={loaded}/>}
-
-        <div className="cloudimage-background-content" style={{ position: 'relative', zIndex: '2' }}>
-          {children}
-        </div>
-      </div>
-    )
-  }
+  return lazyLoading ? (
+    <LazyLoad 
+      ref={bgNode}
+      height={height} 
+      offset={config.lazyLoadOffset} 
+      {...lazyLoadConfig}
+    >
+      {Container}
+    </LazyLoad>
+  ) : Container;
 }
 
 export default BackgroundImg;
