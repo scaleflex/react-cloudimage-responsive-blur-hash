@@ -25,6 +25,10 @@ Types of changes:
 - ...
 
 -------------
+## 1.6.10 - 2023-04-18
+### Fixed
+- Remove CVE vulnerabilities
+
 ## 1.6.9 - 2022-04-29
 ### Fixed
 - Low preview image width
