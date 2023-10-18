@@ -5,3 +5,5 @@ examples
 .gitignore
 .idea
 webpack.config.js
+yarn.lock
+package-lock.json

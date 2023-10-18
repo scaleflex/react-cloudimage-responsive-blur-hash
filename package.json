@@ -41,12 +41,8 @@
   "dependencies": {
     "cloudimage-responsive-utils": "^2.4.9",
     "core-js": "^3.0.0",
-    "react-lazyload": "^2.6.7",
+    "react-lazy-load": "4.0.1",
     "throttle-debounce": "^2.0.1"
-  },
-  "peerDependencies": {
-    "react": "^16.3.0",
-    "react-dom": "^16.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
@@ -66,8 +62,8 @@
     "css-loader": "^6.7.3",
     "gh-pages": "^2.0.1",
     "html-webpack-plugin": "^5.5.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "throttle-debounce": "^2.0.1",
     "react-syntax-highlighter": "^15.5.0",
     "style-loader": "^3.3.2",

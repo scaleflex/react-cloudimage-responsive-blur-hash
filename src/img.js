@@ -3,7 +3,7 @@ import { findDOMNode } from 'react-dom';
 import { isServer, processReactNode } from 'cloudimage-responsive-utils';
 import { getFilteredProps } from './utils.js';
 import {blurHashImgStyes as styles} from "cloudimage-responsive-utils";
-import LazyLoad from 'react-lazyload';
+import LazyLoad from 'react-lazy-load';
 import Canvas from './canvas';
 
 
