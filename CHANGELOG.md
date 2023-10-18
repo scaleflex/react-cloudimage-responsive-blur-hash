@@ -25,6 +25,10 @@ Types of changes:
 - ...
 
 -------------
+## 2.0.0 - 2023-10-18
+### BREAKING
+- Upgrade to React 18
+
 ## 1.6.10 - 2023-04-18
 ### Fixed
 - Remove CVE vulnerabilities
